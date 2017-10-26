@@ -1,4 +1,5 @@
 Spree.user_class.class_eval do
+  after_create :wishlist
   has_many :wishlists, class_name: Spree::Wishlist
 
   def wishlist
