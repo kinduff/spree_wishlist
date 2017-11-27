@@ -13,16 +13,10 @@ class Spree::WishedProductsController < Spree::StoreController
     end
 
     respond_with(@wished_product) do |format|
-      format.html { redirect_to wishlist_url(@wishlist) }
-    end
-  end
-
-  def update
-    @wished_product = Spree::WishedProduct.find(params[:id])
-    @wished_product.update_attributes(wished_product_attributes)
-
-    respond_with(@wished_product) do |format|
-      format.html { redirect_to wishlist_url(@wished_product.wishlist) }
+      format.html {
+        flash[:success] = Spree.t('wishlist.added_successfuly')
+        redirect_to wishlist_url(@wishlist)
+      }
     end
   end
 
@@ -31,7 +25,10 @@ class Spree::WishedProductsController < Spree::StoreController
     @wished_product.destroy
 
     respond_with(@wished_product) do |format|
-      format.html { redirect_to wishlist_url(@wished_product.wishlist) }
+      format.html {
+        flash[:success] = Spree.t('wishlist.removed_successfuly')
+        redirect_to wishlist_url(@wished_product.wishlist)
+      }
     end
   end
 
