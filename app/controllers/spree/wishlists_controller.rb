@@ -4,8 +4,11 @@ class Spree::WishlistsController < Spree::StoreController
   before_action :find_wishlist, only: [:show]
   respond_to :html
 
-  def show
-    respond_with(@wishlist)
+  def default
+    @wishlist = spree_current_user.wishlist
+    respond_with(@wishlist) do |format|
+      format.html { render :show }
+    end
   end
 
   private
