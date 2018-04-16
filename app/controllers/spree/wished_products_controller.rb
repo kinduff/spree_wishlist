@@ -1,4 +1,5 @@
 class Spree::WishedProductsController < Spree::StoreController
+  prepend_before_action :authorize
   respond_to :html
 
   def create
@@ -39,5 +40,12 @@ class Spree::WishedProductsController < Spree::StoreController
 
   def wished_product_attributes
     params.require(:wished_product).permit(:variant_id, :wishlist_id, :remark, :quantity)
+  end
+
+  def authorize
+    unless spree_current_user
+      flash[:error] = "NO OLVIDES REGISTRARTE PARA CALIFICAR TUS PRODUCTOS FAVORITOS ^.^"
+    end
+    authorize! params[:action].to_sym, spree_current_user
   end
 end
