@@ -44,7 +44,7 @@ class Spree::WishedProductsController < Spree::StoreController
 
   def authorize
     unless spree_current_user
-      flash[:error] = "NO OLVIDES REGISTRARTE PARA CALIFICAR TUS PRODUCTOS FAVORITOS ^.^"
+      flash[:error] = "NO OLVIDES REGISTRARTE PARA GUARDAR TUS PRODUCTOS FAVORITOS ^.^"
     end
     authorize! params[:action].to_sym, spree_current_user
   end
